@@ -1,0 +1,15 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "fs:allow-app-data-read",
+    "fs:allow-app-data-write",
+    "fs:allow-appdata-read",
+    "fs:allow-appdata-write",
+    "dialog:allow-message",
+    "dialog:allow-confirm"
+  ]
+}
