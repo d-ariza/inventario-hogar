@@ -1,0 +1,35 @@
+[package]
+name = "inventario-hogar"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Serialización/Deserialización JSON
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# UUID para IDs unicos
+uuid = { version = "1.0", features = ["v4", "serde"] }
+
+# Manejo de fechas
+chrono = { version = "0.4", features = ["serde"] }
+
+# Directorios del sistema (importante para Android/Linux)
+dirs = "5.0"
+
+# Base de datos SQLite (futuro)
+rusqlite = { version = "0.31", features = ["bundled"], optional = true }
+
+# Manejo de errores
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Para búsqueda fuzzy
+fuzzy-matcher = "0.3"
+
+[features]
+default = []
+db = ["rusqlite"]
+
+[dev-dependencies]
+tempfile = "3.0"
