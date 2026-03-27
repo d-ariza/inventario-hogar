@@ -39,13 +39,17 @@ function App() {
   const handleAddItem = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      const newItem = await invoke<Item>('add_item', {
-        producto,
-        cantidad_mensual: parseFloat(cantidad),
-        precio_unitario: parseInt(precio),
-        tienda,
-        categoria
-      });
+      const payload = {
+        producto: producto,
+        cantidadMensual: parseFloat(cantidad),      // ← cambiar a camelCase
+        precioUnitario: parseInt(precio),            // ← cambiar a camelCase
+        tienda: tienda,
+        categoria: categoria
+      };
+
+      console.log('Enviando payload:', payload);
+
+      const newItem = await invoke<Item>('add_item', payload);
       setItems([...items, newItem]);
       setShowForm(false);
       setProducto('');
@@ -85,140 +89,26 @@ function App() {
       item.producto.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Estilos en línea (igual que antes)
   const styles = {
-    container: {
-      minHeight: '100vh',
-      backgroundColor: '#f3f4f6',
-      paddingBottom: '80px',
-    },
-    header: {
-      backgroundColor: '#16a34a',
-      color: 'white',
-      padding: '16px',
-      position: 'sticky' as const,
-      top: 0,
-      zIndex: 10,
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    },
-    headerTitle: {
-      fontSize: '24px',
-      fontWeight: 'bold' as const,
-    },
-    headerSub: {
-      marginTop: '8px',
-      fontSize: '14px',
-    },
-    main: {
-      padding: '16px',
-      maxWidth: '800px',
-      margin: '0 auto',
-    },
-    card: {
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      padding: '16px',
-      marginBottom: '16px',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    },
-    grid2: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gap: '16px',
-      marginBottom: '24px',
-    },
-    cardTitle: {
-      fontSize: '14px',
-      color: '#6b7280',
-      marginBottom: '8px',
-    },
-    searchInput: {
-      width: '100%',
-      padding: '12px',
-      border: '1px solid #d1d5db',
-      borderRadius: '8px',
-      marginBottom: '16px',
-      fontSize: '16px',
-    },
-    item: {
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      padding: '16px',
-      marginBottom: '12px',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    },
-    itemTitle: {
-      fontSize: '18px',
-      fontWeight: 'bold' as const,
-    },
-    itemBadge: {
-      backgroundColor: '#f3f4f6',
-      padding: '4px 8px',
-      borderRadius: '4px',
-      fontSize: '12px',
-      marginRight: '8px',
-    },
-    fab: {
-      position: 'fixed' as const,
-      bottom: '24px',
-      right: '24px',
-      backgroundColor: '#16a34a',
-      color: 'white',
-      width: '56px',
-      height: '56px',
-      borderRadius: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '24px',
-      cursor: 'pointer',
-      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-      border: 'none',
-    },
-    modal: {
-      position: 'fixed' as const,
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex',
-      alignItems: 'flex-end' as const,
-      justifyContent: 'center',
-      zIndex: 50,
-    },
-    modalContent: {
-      backgroundColor: 'white',
-      borderRadius: '16px 16px 0 0',
-      width: '100%',
-      maxWidth: '500px',
-      padding: '24px',
-    },
-    input: {
-      width: '100%',
-      padding: '12px',
-      border: '1px solid #d1d5db',
-      borderRadius: '8px',
-      marginBottom: '12px',
-      fontSize: '16px',
-    },
-    button: {
-      width: '100%',
-      backgroundColor: '#16a34a',
-      color: 'white',
-      padding: '12px',
-      border: 'none',
-      borderRadius: '8px',
-      fontSize: '16px',
-      fontWeight: 'bold' as const,
-      cursor: 'pointer',
-    },
-    deleteButton: {
-      backgroundColor: 'transparent',
-      border: 'none',
-      fontSize: '20px',
-      cursor: 'pointer',
-      color: '#ef4444',
-    },
+    container: { minHeight: '100vh', backgroundColor: '#f3f4f6', paddingBottom: '80px' },
+    header: { backgroundColor: '#16a34a', color: 'white', padding: '16px', position: 'sticky' as const, top: 0, zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' },
+    headerTitle: { fontSize: '24px', fontWeight: 'bold' as const },
+    headerSub: { marginTop: '8px', fontSize: '14px' },
+    main: { padding: '16px', maxWidth: '800px', margin: '0 auto' },
+    card: { backgroundColor: 'white', borderRadius: '8px', padding: '16px', marginBottom: '16px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' },
+    grid2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' },
+    cardTitle: { fontSize: '14px', color: '#6b7280', marginBottom: '8px' },
+    searchInput: { width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px', fontSize: '16px' },
+    item: { backgroundColor: 'white', borderRadius: '8px', padding: '16px', marginBottom: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' },
+    itemTitle: { fontSize: '18px', fontWeight: 'bold' as const },
+    itemBadge: { backgroundColor: '#f3f4f6', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', marginRight: '8px' },
+    fab: { position: 'fixed' as const, bottom: '24px', right: '24px', backgroundColor: '#16a34a', color: 'white', width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', cursor: 'pointer', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: 'none' },
+    modal: { position: 'fixed' as const, top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'flex-end' as const, justifyContent: 'center', zIndex: 50 },
+    modalContent: { backgroundColor: 'white', borderRadius: '16px 16px 0 0', width: '100%', maxWidth: '500px', padding: '24px' },
+    input: { width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '12px', fontSize: '16px' },
+    button: { width: '100%', backgroundColor: '#16a34a', color: 'white', padding: '12px', border: 'none', borderRadius: '8px', fontSize: '16px', fontWeight: 'bold' as const, cursor: 'pointer' },
+    deleteButton: { backgroundColor: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer', color: '#ef4444' },
   };
 
   return (

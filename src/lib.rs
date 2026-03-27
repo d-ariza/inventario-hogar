@@ -12,7 +12,7 @@ pub use utils::{formatear_numero, formatear_moneda, guardar_atomico, crear_backu
 
 use std::fs;
 use std::path::Path;
-use uuid::Uuid;
+//use uuid::Uuid;
 
 pub fn cargar_desde_json(path: &Path) -> Result<ConfiguracionInventario, String> {
     let contenido = fs::read_to_string(path)

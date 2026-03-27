@@ -1,9 +1,9 @@
 export interface Item {
     id: string;
     producto: string;
-    cantidad_mensual: number;
-    precio_unitario: number;
-    costo_mensual: number;
+    cantidadMensual: number;      // ← camelCase
+    precioUnitario: number;        // ← camelCase
+    costoMensual: number;
     tienda: string;
     categoria: string;
 }
